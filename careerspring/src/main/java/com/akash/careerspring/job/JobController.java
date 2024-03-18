@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/jobs")                                                                                 //class level. just sets a base url
 public class JobController {
 
     private JobService jobService;
@@ -15,18 +16,21 @@ public class JobController {
         this.jobService = jobService;
     }
 
-    @GetMapping("/jobs")
+//    @GetMapping("/jobs")
+    @GetMapping
     public ResponseEntity<List<Job>> findAllJobs(){
         return ResponseEntity.ok(jobService.findAll());
     }
 
-    @PostMapping("/jobs")
+//    @PostMapping("/jobs")
+    @PostMapping
     public ResponseEntity<String> createJob(@RequestBody Job job){
         jobService.createJob(job);
         return new ResponseEntity<>("Job added successfully", HttpStatus.OK);
     }
 
-    @GetMapping("/jobs/{id}")
+//    @GetMapping("/jobs/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Job> getJobById(@PathVariable Long id){
         Job job = jobService.getJobById(id);
         if(job != null){
@@ -35,7 +39,8 @@ public class JobController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @DeleteMapping("/jobs/{id}")
+//    @DeleteMapping("/jobs/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteJob(@PathVariable Long id){
         Boolean deleted = jobService.deleteJobById(id);
         if(deleted){
@@ -44,8 +49,9 @@ public class JobController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    //@RequestMapping(value = "/jobs/{id}", method = RequestMethod.PUT)
-    @PutMapping("/jobs/{id}")
+    //@RequestMapping(value = "/jobs/{id}", method = RequestMethod.PUT)                                     //just alternative
+//    @PutMapping("/jobs/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<String> updateJob(@PathVariable Long id, @RequestBody Job updatedJob){
         boolean updated = jobService.updateJob(id, updatedJob);
         if(updated){
