@@ -21,7 +21,7 @@ public class JobServiceImpl implements JobService {
         this.jobRepository = jobRepository;
     }
 
-    private Long nextId = 1L;
+    //private Long nextId = 1L;
 
 
     @Override
@@ -32,7 +32,7 @@ public class JobServiceImpl implements JobService {
 
     @Override
     public void createJob(Job job) {
-        job.setId(nextId++);
+//        job.setId(nextId++);
 //        jobs.add(job);
         jobRepository.save(job);
     }
@@ -79,17 +79,18 @@ public class JobServiceImpl implements JobService {
         Optional<Job> jobOptional = jobRepository.findById(id);
         if(jobOptional.isPresent()){
             Job job = jobOptional.get();
-            setUpdatedEntries(updatedJob, job);
+            jobRepository.save(getUpdatedJob(updatedJob, job));
             return true;
         }
         return false;
     }
 
-    private static void setUpdatedEntries(Job updatedJob, Job job) {
+    private Job getUpdatedJob(Job updatedJob, Job job) {
         job.setDescription(updatedJob.getDescription());
         job.setLocation(updatedJob.getLocation());
         job.setTitle(updatedJob.getTitle());
         job.setMinSalary(updatedJob.getMinSalary());
         job.setMaxSalary(updatedJob.getMaxSalary());
+        return job;
     }
 }
