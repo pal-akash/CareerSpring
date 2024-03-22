@@ -16,5 +16,9 @@ public class CompanyController {
         this.companyService = companyService;
     }
 
+    @GetMapping
+    public List<Company> getAllCompany(){
+        return companyService.getAllCompanies();
+    }
 
 }
