@@ -34,6 +34,12 @@ public class CompanyServiceImpl implements CompanyService {
         return false;
     }
 
+    @Override
+    public void createCompany(Company company) {
+        companyRepository.save(company);
+    }
+
+
     private Company getUpdatedCompany(Company updatedCompany, Company company) {
         company.setName(updatedCompany.getName());
         company.setDescription(updatedCompany.getDescription());
