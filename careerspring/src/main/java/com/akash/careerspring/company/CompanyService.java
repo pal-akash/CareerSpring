@@ -8,5 +8,5 @@ public interface CompanyService {
 
     //Company getCompanyById(Long id);
 
-
+    Boolean updateCompany(Company company, Long id);
 }
